@@ -1,0 +1,12 @@
+{#
+/**
+ * @file
+ * Template for snippet layout.
+ */
+#}
+{% if content %}
+  {# This wrapper is needed for Layout builder.  #}
+  <div{{ attributes }}>
+    {{ content }}
+  </div>
+{% endif %}

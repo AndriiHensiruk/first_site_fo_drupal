@@ -1,0 +1,27 @@
+editor:
+  js:
+    js/editor.js: {preprocess: false}
+  css:
+    component:
+      css/editor.css: {preprocess: false}
+  dependencies:
+    - codemirror_editor/editor
+    - core/jquery
+    - core/jquery.once
+
+listing:
+  js:
+    js/listing.js: {preprocess: false}
+  css:
+    theme:
+      css/listing.css: {preprocess: false}
+  dependencies:
+    - core/jquery
+    - core/drupal.debounce
+
+html_source:
+  css:
+    theme:
+      css/html-source.css: {preprocess: false}
+  dependencies:
+    - codemirror_editor/editor

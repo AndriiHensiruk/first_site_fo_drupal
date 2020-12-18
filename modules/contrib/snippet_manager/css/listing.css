@@ -1,0 +1,20 @@
+.sm-listing-filters {
+  margin-bottom: 18px;
+}
+
+.sm-listing-filters .form-item {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.sm-inactive {
+  opacity: .5;
+}
+
+.sm-snippets-overview th {
+  width: 12.5%;
+}
+
+.js .sm-snippets-overview td .dropbutton-multiple {
+  margin-right: 0;
+}

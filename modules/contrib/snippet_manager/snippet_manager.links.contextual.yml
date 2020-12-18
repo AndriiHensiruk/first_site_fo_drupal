@@ -1,0 +1,4 @@
+entity.snippet.edit_template:
+  title: Edit snippet template
+  route_name: entity.snippet.template_edit_form
+  group: snippet

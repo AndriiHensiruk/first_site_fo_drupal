@@ -1,0 +1,111 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Snippet manager module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Render\Element;
+
+/**
+ * Implements hook_library_info_build().
+ */
+function snippet_manager_library_info_build() {
+  return \Drupal::service('snippet_manager.snippet_library_builder')->build();
+}
+
+/**
+ * Implements hook_theme().
+ */
+function snippet_manager_theme() {
+  return [
+    'snippet_layout' => [
+      'render element' => 'content',
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for snippet layout template.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - content: An associative array containing the properties of the element.
+ */
+function template_preprocess_snippet_layout(array &$variables) {
+
+  // Turn regions into Twig context.
+  $context = [];
+  foreach (Element::children($variables['content']) as $name) {
+    $context[$name] = $variables['content'][$name];
+    // We have to create a wrapper for each region to make sure its attributes
+    // are rendered. Otherwise the Layout builder UI may not work correctly.
+    $context[$name]['#type'] = 'container';
+    $context[$name]['#attributes']['class'][] = 'layout__region';
+    $context[$name]['#attributes']['class'][] = 'layout__region--' . $name;
+  }
+
+  /** @var \Drupal\snippet_manager\SnippetInterface $snippet */
+  $snippet = $variables['content']['#snippet'];
+  // Replace layout content with snippet build.
+  $variables['content'] = \Drupal::service('entity_type.manager')
+    ->getViewBuilder('snippet')
+    ->view($snippet, 'full', NULL, $context);
+
+  $variables['attributes']['class'][] = 'snippet-layout';
+  $variables['attributes']['class'][] = 'layout';
+  $variables['attributes']['class'][] = 'layout--' . $snippet->id();
+
+  // Disable render cache for the snippet to avoid caching form default values.
+  unset($variables['content']['snippet']['#cache']['keys']);
+}
+
+/**
+ * Implements hook_entity_create().
+ */
+function snippet_manager_entity_create(EntityInterface $entity) {
+  snippet_manager_entity_save($entity);
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function snippet_manager_entity_delete(EntityInterface $entity) {
+  snippet_manager_entity_save($entity);
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function snippet_manager_entity_update(EntityInterface $entity) {
+  snippet_manager_entity_save($entity);
+}
+
+/**
+ * Clears cached definitions of snippet variable plugins.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   Entity that has been saved.
+ */
+function snippet_manager_entity_save(EntityInterface $entity) {
+  $tracked_entity_types = [
+    'block',
+    'menu',
+    'view',
+  ];
+  if (in_array($entity->getEntityTypeId(), $tracked_entity_types)) {
+    \Drupal::service('plugin.manager.snippet_variable')->clearCachedDefinitions();
+  }
+}
+
+/**
+ * Implements hook_codemirror_mode_info_alter().
+ */
+function snippet_manager_codemirror_mode_info_alter(array &$modes) {
+  // Make sure that following modes are always loaded.
+  $modes['xml']['usage'][] = 'snippet_manager';
+  $modes['twig']['usage'][] = 'snippet_manager';
+  $modes['javascript']['usage'][] = 'snippet_manager';
+  $modes['css']['usage'][] = 'snippet_manager';
+}

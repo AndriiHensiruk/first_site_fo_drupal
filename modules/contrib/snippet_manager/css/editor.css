@@ -1,0 +1,11 @@
+.snippet-form caption {
+  font-weight: bold;
+}
+
+.sm-variables {
+  margin: 15px 0;
+}
+
+.sm-variables th {
+  width: 25%;
+}

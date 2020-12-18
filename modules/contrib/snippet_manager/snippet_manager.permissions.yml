@@ -1,0 +1,3 @@
+administer snippets:
+  title: Administer snippets
+  restrict access: true

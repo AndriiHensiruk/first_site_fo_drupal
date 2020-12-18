@@ -1,0 +1,254 @@
+snippet_manager.snippet.*:
+  type: config_entity
+  label: Snippet
+  mapping:
+    uuid:
+      type: string
+    id:
+      type: string
+      label: ID
+    label:
+      type: label
+      label: Label
+    page:
+      type: mapping
+      label: Page settings
+      mapping:
+        status:
+          type: boolean
+          label: Status
+        title:
+          type: label
+          label: Title
+        path:
+          type: string
+          label: Path
+        display_variant:
+          type: string
+          label: Display variant
+        theme:
+          type: string
+          label: Theme
+        access:
+          type: mapping
+          label: Access
+          mapping:
+            type:
+              type: string
+              label: Type
+            permission:
+              type: string
+              label: Permission
+            role:
+              type: sequence
+              label: Permission
+              sequence:
+                type: string
+                label: Role ID
+    block:
+      type: mapping
+      label: Block settings
+      mapping:
+        status:
+          type: boolean
+          label: Status
+        name:
+          type: label
+          label: Name
+    display_variant:
+      type: mapping
+      label: Dislay variant settings
+      mapping:
+        status:
+          type: boolean
+          label: Status
+        admin_label:
+          type: label
+          label: Label
+    layout:
+      type: mapping
+      label: Layout settings
+      mapping:
+        status:
+          type: boolean
+          label: Status
+        label:
+          type: label
+          label: Label
+        default_region:
+          type: string
+          label: Default region
+    template:
+      type: mapping
+      label: Template
+      mapping:
+        value:
+          label: Value
+          type: string
+        format:
+          label: Format
+          type: string
+    css:
+      type: mapping
+      label: CSS
+      mapping:
+        status:
+          type: boolean
+          label: Status
+        preprocess:
+          type: boolean
+          label: Preprocess
+        value:
+          label: Code
+          type: string
+        group:
+          label: Group
+          type: string
+    js:
+      type: mapping
+      label: JS
+      mapping:
+        status:
+          type: boolean
+          label: Status
+        preprocess:
+          type: boolean
+          label: Preprocess
+        value:
+          label: Code
+          type: string
+    variables:
+      label: Variables
+      type: sequence
+      sequence:
+        type: mapping
+        label: Variable settings
+        mapping:
+          plugin_id:
+            type: string
+            label: Plugin ID
+          configuration:
+            type: snippet_manager_variable_settings.[%parent.plugin_id]
+            label: Plugin configuration
+
+snippet_manager_variable_settings.condition:*:
+  type: mapping
+  mapping:
+    condition:
+      type: ignore
+
+snippet_manager_variable_settings.entity:*:
+  type: mapping
+  mapping:
+    entity_id:
+      type: string
+      label: Entity ID
+    view_mode:
+      type: string
+      label: View mode
+    render_mode:
+      type: string
+      label: Render mode
+    bypass_access:
+      type: boolean
+      label: Bypass access
+
+snippet_manager_variable_settings.entity_form:*:
+  type: mapping
+  mapping:
+    form_mode:
+      type: string
+      label: Form mode
+    bundle:
+      type: string
+      label: Bundle
+
+snippet_manager_variable_settings.form:*:
+  type: mapping
+
+snippet_manager_variable_settings.file:
+  type: mapping
+  mapping:
+    file:
+      type: string
+      label: File UUID
+    format:
+      type: string
+      label: Format
+
+snippet_manager_variable_settings.display_variant:*:
+  type: mapping
+
+snippet_manager_variable_settings.layout_region:
+  type: mapping
+  mapping:
+    label:
+      type: label
+      label: Label
+    weight:
+      type: integer
+      label: Weight
+
+snippet_manager_variable_settings.url:
+  type: mapping
+  mapping:
+    path:
+      type: string
+      label: Path
+
+snippet_manager_variable_settings.text:
+  type: mapping
+  mapping:
+    content:
+      type: text_format
+      label: Content
+
+snippet_manager_variable_settings.mini_snippet:
+  type: mapping
+  mapping:
+    template:
+      type: string
+      label: Template
+
+snippet_manager_variable_settings.view:*:
+  type: mapping
+  mapping:
+    display:
+      type: string
+      label: Display
+
+snippet_manager_variable_settings.menu:*:
+  type: mapping
+  mapping:
+    level:
+      type: integer
+      label: Starting level
+    depth:
+      type: integer
+      label: Maximum number of levels
+
+snippet_manager_variable_settings.block:*:
+  type: ignore
+  label: Block settings
+
+snippet_manager_variable_settings.block:*:*:
+  type: ignore
+  label: Block settings
+
+snippet_manager_variable_settings.block:*:*:*:
+  type: ignore
+  label: Block settings
+
+snippet_manager_variable_settings.block:*:*:*:*:
+  type: ignore
+  label: Block settings
+
+ckeditor.plugin.snippet_manager_snippet:
+  type: mapping
+  label: 'Snippet'
+  mapping:
+    snippets:
+      type: sequence
+      label: 'Snippets'
+      sequence:
+        type: string

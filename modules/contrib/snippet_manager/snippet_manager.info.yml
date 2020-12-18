@@ -1,0 +1,17 @@
+name: Snippet Manager
+type: module
+description: Manages code snippets on a site.
+core: 8.x
+core_version_requirement: ^8 || ^9
+dependencies:
+  - drupal:system (>= 8.7.7)
+  - drupal:filter
+  - drupal:file
+  - codemirror_editor:codemirror_editor (>= 8.x-1.4)
+configure: entity.snippet.collection
+php: 7.1
+
+# Information added by Drupal.org packaging script on 2020-03-08
+version: '8.x-1.8'
+project: 'snippet_manager'
+datestamp: 1583689290

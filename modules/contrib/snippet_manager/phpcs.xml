@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<ruleset name="Snppet Manager">
+  <description>PHP CodeSniffer configuration for Snippet Manager module.</description>
+  <arg name="extensions" value="php, module, yml, txt"/>
+  <rule ref="Drupal"/>
+  <rule ref="DrupalPractice">
+    <exclude name="Drupal.Commenting.Deprecated.IncorrectTextLayout"/>
+    <exclude name="Drupal.Commenting.Deprecated.DeprecatedMissingSeeTag"/>
+  </rule>
+</ruleset>
